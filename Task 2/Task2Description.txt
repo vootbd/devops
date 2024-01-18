@@ -1,0 +1,21 @@
+Create 1 master and 2 worker kubernetes cluster using vagrant or lxc/lxd containers. 
+
+Use ansible or any configuration management tool of your choice to download kubernetes 
+binaries and install into those vms/containers. Create a kubeadm config file and use 
+kubeadm to bootstrap kubernetes cluster using that configuration management tool. 
+
+You can combine binary installation and configuration scripts or keep them separate.
+
+
+Use CNI of your choice but it should be deployed using configuration management scripts
+(ansible or other)
+
+Deploy kubernetes dashboard and metric server in this cluster and expose it to nodeport.
+
+Create a service account with the right privilege (provide RBAC file) to access kubernetes
+dashboard. Host it into a public git repo with appropriate readme.
+
+Your solution should contain instructions to setup vagrant or lxc/lxd containers.
+
+Your solution should contain ansible or other configuration management tool scripts to install,
+configure cluster, cni, deploy dashboard, metric server and create service account with rbac.
