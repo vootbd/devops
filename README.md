@@ -1,98 +1,70 @@
-# devops
-This is a project to complete the following tasks.
+DevOps Project
+This project aims to complete a series of tasks related to DevOps practices. Below are detailed instructions for each task.
 
-## Task 1
-Create a full project with code, deployment YAML and Jenkinsfile in a GitHub/Gitlab/Bitbucket
-repository.
-The source should be php Laravel's latest code. You will take that code and make 2 docker file to
-create 2 docker images that display the following static HTML pages,
-App 1 browser output: Hello I am App 1
-App 2 browser output: Hello I am App 2
-Host these docker images in your dockerhub account publicly. Create separate kubernetes
-deployment, config map, service yaml files. Service should be nodeport.
-Include a nginx deployment that will serve app1 or app2 based on api address. Use nginx
-official image and mount configmap to change configuration.
-http://nodeip:nodeport/app1 displays app1
-http://nodeip:nodeport/app2 displays app2
-Deploy these applications in a lightweight kubernetes distribution of your choice. Kind, minikube,
-k3s, k0s. Cluster should be 1 master and 2 nodes. Force app1 in node1 and app2 in node2 with
-node labels or taints/tolerations, nginx can stay anywhere. Use configmaps for any environment
-variables.
-Create a docker compose file that runs a jenkins container. Create 2 jenkinsfile that builds and
-deploys these 2 applications into your choice of lightweight cluster in your local machine.
-Your solution should include step by step instruction to setup lightweight kubernetes distribution,
-Your solution should include how to setup 2 jenkins pipelines that use jenkinsfile from your
-public repository.
-Your solution should include how to customize kubernetes deployment files to use docker
-images built by the jenkins pipeline
-Prepare readme in such way that anyone can start jenkins container using docker compose,
-create 2 pipelines with your instructions, download your code using jenkinsfile from your public
-repo, build code and push to their dockerhub account (show the way to input credentials to push
-to dockerhub but DO NOT provide any of your credentials anywhere) and use those docker
-images with kubernetes yaml files to deploy app1 and app2 into the lightweight cluster. You can
-provide separate instructions to deploy nginx and update its config to point to app1 and app2.
-Please keep in mind common anti-patterns, security concerns and suggest how your solution
-can be scaled up in future. BONUS point for anyone that can successfully integrate any service
-mesh to handle api traffic routing from kubernetes end.
-Your folder structure should look like the following, src for source codes, build for dockerfile and
-related settings, deploy for kubernetes yaml files.
-directory root
+Task 1
+Project Structure
+lua
+Copy code
+|-- app1
+|   |-- src
+|   |-- build
+|   |-- deploy
+|   |-- Jenkinsfile
+|   |-- readme.md
 
-----app1
-----src
-----build
-----deploy
-----Jenkinsfile
-----readme.md
+|-- app2
+|   |-- src
+|   |-- build
+|   |-- deploy
+|   |-- Jenkinsfile
+|   |-- readme.md
 
-----app2
-----src
-----build
-----deploy
-----Jenkinsfile
-----readme.md
+|-- nginx
+|   |-- deploy
+|   |-- infra
+|   |-- config (contains files to set up lightweight cluster)
+|   |-- readme.md
 
-----nginx
-----deploy
-----readme.md
-----infra
-----config (contains the files to setup lightweight cluster)
-----readme.md
+|-- readme.md
 
-----readme.md
-
-## Task 2
-Create 1 master and 2 worker kubernetes cluster using vagrant or lxc/lxd containers. Use
-Ansible or any configuration management tool of your choice to download kubernetes binaries
-and install them into those vms/containers. Create a kubeadm config file and use kubeadm to
-bootstrap kubernetes cluster using that configuration management tool. You can combine binary
-installation and configuration scripts or keep them separate.
-Use CNI of your choice but it should be deployed using configuration management scripts
-(ansible or other)
-Deploy kubernetes dashboard and metric server in this cluster and expose it to nodeport.
-Create a service account with the right privilege (provide RBAC file) to access kubernetes
-dashboard. Host it into a public git repo with an appropriate readme.
-Your solution should contain instructions to setup vagrant or lxc/lxd containers.
-Your solution should contain ansible or other configuration management tool scripts to install,
-configure cluster, CNI, deploy dashboard, metric server, and create a service account with rbac.
-
-## Task 3
-Create a public git repo that will contain readme files and diagrams. You can combine them
-together or keep separate according to section.
-Design a highly available microservices architecture deployment solution. Your application may
-reside on-premise or can be in the cloud or hybrid.
-Your solution should use infrastructure as code or gitops methodologies.
-Your solution should use proper load-balancing, single point of failure, scalability, fault tolerance,
-and auto recovery considerations.
-Your solution should include CI/CD strategies and tool justification along with test automation
-and security as pipeline concepts.
-Your solution should describe how observability across the whole architecture will be maintained
-and what tools will be used?
-Your solution should provide logging, alerting strategies, and how outage should be handled.
-Your solution should include ways for knowledgebase and configurations, and secrets management
-to be integrated with the system.
-You can imagine any sector software system you like (e-commerce, telecom, ride sharing, etc)
-but justify why it is on-premise or in the cloud or maybe hybrid. Provide advantages
-of tools and strategies that you selected over others in the market.
-A diagram of the proposed architecture would be wonderful but not strictly required. Try to
-address all the points in easy-to-understand English in your readme file or files
+Instructions
+Create a full project with code, deployment YAML, and Jenkinsfile in a GitHub/Gitlab/Bitbucket repository.
+Use Laravel's latest PHP code and create two Dockerfiles to build images displaying static HTML pages for App 1 and App 2.
+Host these Docker images publicly on Dockerhub.
+Create separate Kubernetes deployment, config map, and service YAML files. Service should be nodeport.
+Include an Nginx deployment to serve App1 or App2 based on the API address.
+Deploy applications in a lightweight Kubernetes distribution (Kind, Minikube, K3s, K0s) with a 1 master and 2 nodes cluster.
+Use node labels or taints/tolerations to force App1 on node1 and App2 on node2.
+Create a Docker Compose file that runs a Jenkins container.
+Create 2 Jenkinsfiles for building and deploying the applications into your lightweight cluster.
+Provide step-by-step instructions for setting up the lightweight Kubernetes distribution.
+Include instructions to set up 2 Jenkins pipelines using Jenkinsfile from your public repository.
+Explain how to customize Kubernetes deployment files to use Docker images built by the Jenkins pipeline.
+Prepare a readme for anyone to start Jenkins container, create pipelines, download code, build, and push to Dockerhub.
+Provide separate instructions to deploy Nginx and update its config to point to App1 and App2.
+Address common anti-patterns, security concerns, and suggest how the solution can be scaled up.
+Bonus points for successfully integrating any service mesh for API traffic routing.
+Task 2
+Instructions
+Create a Kubernetes cluster with 1 master and 2 worker nodes using Vagrant or LXC/LXD containers.
+Use Ansible or any configuration management tool to download Kubernetes binaries and install them.
+Create a kubeadm config file and use kubeadm to bootstrap the Kubernetes cluster.
+Choose a CNI and deploy it using configuration management scripts.
+Deploy Kubernetes dashboard and metric server, exposing them to nodeport.
+Create a service account with the right privileges and provide an RBAC file to access the Kubernetes dashboard.
+Host everything in a public git repo with appropriate readme.
+Provide instructions to set up Vagrant or LXC/LXD containers.
+Include Ansible or other configuration management tool scripts for installation, configuration, CNI deployment, dashboard, metric server, and RBAC.
+Task 3
+Instructions
+Create a public Git repo for readme files and diagrams.
+Design a highly available microservices architecture deployment solution.
+Use infrastructure as code or GitOps methodologies.
+Consider load balancing, single points of failure, scalability, fault tolerance, and auto-recovery.
+Include CI/CD strategies, tool justification, test automation, and security as pipeline concepts.
+Describe observability across the entire architecture and tools used.
+Provide logging, alerting strategies, and outage handling.
+Integrate knowledge base, configurations, and secrets management with the system.
+Justify whether the application is on-premise, in the cloud, or hybrid.
+Explain advantages of selected tools and strategies over others in the market.
+Optionally include a diagram of the proposed architecture.
