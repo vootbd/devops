@@ -2,30 +2,30 @@
 
 
 ## Task 1
-Create a full project with code, deployment yaml and jenkinsfile in a github/gitlab/bitbucket repository.
+Create a full project with code, deployment YAML and Jenkinsfile in a GitHub/Gitlab/Bitbucket repository.
 
-Source should be php laravel latest code. You will take that code and make 2 dockerfile to
-create 2 docker image that displays following static html pages,
+The source should be php Laravel's latest code. You will take that code and make 2 docker file to
+create 2 docker images that displays the following static HTML pages,
 
 App 1 browser output: Hello I am App 1
 App 2 browser output: Hello I am App 2
 
-Host these docker images in your dockerhub account publicly. Create separate kubernetes
-deployment, configmap, service yaml files. Service should be nodeport.
+Host these docker images in your docker hub account publicly. Create separate kubernetes
+deployment, config map, and service YAML files. Service should be node port.
 
-Include a nginx deployment that will serve app1 or app2 based on api address. Use nginx official image and mount configmap to change configuration.
+Include an Nginx deployment that will serve app1 or app2 based on the API address. Use the nginx official image and mount config map to change the configuration.
 http://nodeip:nodeport/app1 displays app1
 http://nodeip:nodeport/app2 displays app2
 
 Deploy these applications in a lightweight kubernetes distribution of your choice. Kind, minikube,
-k3s, k0s. Cluster should be 1 master and 2 nodes. Force app1 in node1 and app2 in node2 with
-node labels or taints/tolerations, nginx can stay anywhere. Use configmaps for any environment
+k3s, k0s. The cluster should be 1 master and 2 nodes. Force app1 in node1 and app2 in node2 with
+node labels or taints/tolerations, nginx can stay anywhere. Use config maps for any environment
 variables.
 
-Create a docker compose file that runs a jenkins container. Create 2 jenkinsfile that builds and
+Create a docker-compose file that runs a Jenkins container. Create 2 Jenkins files that builds and
 deploys these 2 applications into your choice of lightweight cluster in your local machine.
-Your solution should include step by step instruction to setup lightweight kubernetes distribution,
-Your solution should include how to setup 2 jenkins pipelines that use jenkinsfile from your
+Your solution should include step-by-step instructions to setup lightweight kubernetes distribution,
+Your solution should include how to setup 2 Jenkins pipelines that use Jenkinsfile from your
 public repository.
 
 Your solution should include how to customize kubernetes deployment files to use docker
