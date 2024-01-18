@@ -45,7 +45,10 @@ mesh to handle API traffic routing from the kubernetes end.
 Your folder structure should look like the following, src for source codes, build for docker file and
 related settings, deploy for kubernetes YAML files.
 
-directory root
+directory
+
+root
+
 ----app1
 ----src
 ----build
