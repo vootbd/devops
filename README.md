@@ -14,6 +14,7 @@ Host these docker images in your docker hub account publicly. Create separate ku
 deployment, config map, and service YAML files. Service should be node port.
 
 Include an Nginx deployment that will serve app1 or app2 based on the API address. Use the nginx official image and mount config map to change the configuration.
+
 http://nodeip:nodeport/app1 displays app1
 http://nodeip:nodeport/app2 displays app2
 
@@ -22,27 +23,27 @@ k3s, k0s. The cluster should be 1 master and 2 nodes. Force app1 in node1 and ap
 node labels or taints/tolerations, nginx can stay anywhere. Use config maps for any environment
 variables.
 
-Create a docker-compose file that runs a Jenkins container. Create 2 Jenkins files that builds and
+Create a docker-compose file that runs a Jenkins container. Create 2 Jenkins files that build and
 deploys these 2 applications into your choice of lightweight cluster in your local machine.
 Your solution should include step-by-step instructions to setup lightweight kubernetes distribution,
 Your solution should include how to setup 2 Jenkins pipelines that use Jenkinsfile from your
 public repository.
 
-Your solution should include how to customize kubernetes deployment files to use docker
-images built by the jenkins pipeline
+Your solution should include how to customize kubernetes deployment files to use the docker
+images built by the Jenkins pipeline
 
-Prepare readme in such way that anyone can start jenkins container using docker compose,
-create 2 pipelines with your instructions, download your code using jenkinsfile from your public
-repo, build code and push to their dockerhub account (show the way to input credentials to push
-to dockerhub but DO NOT provide any of your credentials anywhere) and use those docker
-images with kubernetes yaml files to deploy app1 and app2 into the lightweight cluster. You can
+Prepare readme in such a way that anyone can start Jenkins container using docker-compose,
+create 2 pipelines with your instructions, download your code using Jenkinsfile from your public
+repo, build code, and push to their docker hub account (show the way to input credentials to push
+to docker hub but DO NOT provide any of your credentials anywhere) and use those docker
+images with kubernetes YAML files to deploy app1 and app2 into the lightweight cluster. You can
 provide separate instructions to deploy nginx and update its config to point to app1 and app2.
-Please keep in mind common anti-patterns, security concerns and suggest how your solution
-can be scaled up in future. BONUS point for anyone that can successfully integrate any service
-mesh to handle api traffic routing from kubernetes end.
+Please keep in mind common anti-patterns, and security concerns and suggest how your solution
+can be scaled up in the future. BONUS point for anyone that can successfully integrate any service
+mesh to handle API traffic routing from the kubernetes end.
 
-Your folder structure should look like the following, src for source codes, build for dockerfile and
-related settings, deploy for kubernetes yaml files.
+Your folder structure should look like the following, src for source codes, build for docker file and
+related settings, deploy for kubernetes YAML files.
 
 directory root
 ----app1
@@ -71,18 +72,18 @@ directory root
 
 ## Task 2
 Create 1 master and 2 worker kubernetes cluster using vagrant or lxc/lxd containers. Use
-ansible or any configuration management tool of your choice to download kubernetes binaries
-and install into those vms/containers. Create a kubeadm config file and use kubeadm to
-bootstrap kubernetes cluster using that configuration management tool. You can combine binary
+Ansible or any configuration management tool of your choice to download kubernetes binaries
+and install them into those VMs/containers. Create a kubeadm config file and use kubeadm to
+bootstrap the kubernetes cluster using that configuration management tool. You can combine binary
 installation and configuration scripts or keep them separate.
-Use CNI of your choice but it should be deployed using configuration management scripts
+Use the CNI of your choice but it should be deployed using configuration management scripts
 (ansible or other)
-Deploy kubernetes dashboard and metric server in this cluster and expose it to nodeport.
+Deploy the kubernetes dashboard and metric server in this cluster and expose it to nodeport.
 Create a service account with the right privilege (provide RBAC file) to access kubernetes
-dashboard. Host it into a public git repo with appropriate readme.
+dashboard. Host it into a public git repo with an appropriate readme.
 Your solution should contain instructions to setup vagrant or lxc/lxd containers.
-Your solution should contain ansible or other configuration management tool scripts to install,
-configure cluster, cni, deploy dashboard, metric server and create service account with rbac.
+Your solution should contain Ansible or other configuration management tool scripts to install,
+and configure the cluster, CNI, deploy the dashboard, and metric server, and create a service account with rbac.
 
 ## Task 3
 Create a public git repo which will contain readme files and diagrams. You can combine them
