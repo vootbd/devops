@@ -4,8 +4,8 @@
 ## Task 1
 Create a full project with code, deployment YAML and Jenkinsfile in a GitHub/Gitlab/Bitbucket repository.
 
-The source should be php Laravel's latest code. You will take that code and make 2 docker file to
-create 2 docker images that displays the following static HTML pages,
+The source should be php Laravel's latest code. You will take that code and make 2 docker files to
+create 2 docker images that display the following static HTML pages,
 
 App 1 browser output: Hello I am App 1
 App 2 browser output: Hello I am App 2
@@ -83,7 +83,8 @@ dashboard. Host it into a public git repo with appropriate readme.
 Your solution should contain instructions to setup vagrant or lxc/lxd containers.
 Your solution should contain ansible or other configuration management tool scripts to install,
 configure cluster, cni, deploy dashboard, metric server and create service account with rbac.
-Task 3
+
+## Task 3
 Create a public git repo which will contain readme files and diagrams. You can combine them
 together or keep separate according to section.
 Design a highly available microservices architecture deployment solution. Your application may
@@ -94,12 +95,12 @@ auto recovery considerations.
 Your solution should include CI/CD strategies and tool justification along with test automation
 and security as pipeline concepts.
 Your solution should describe how observability across the whole architecture will be maintained
-and what tools will be used.
-Your solution should provide logging, alerting strategies and how outage should be handled.
-Your solution should include ways for knowledgebase and configurations, secrets management
+and what tools will be used?
+Your solution should provide logging, alerting strategies, and how outage should be handled.
+Your solution should include ways for knowledgebase and configurations, and secrets management
 to be integrated with the system.
-You can imagine any sector software system you like (e-commerce, telecom, ride sharing etc)
-but provide justification for why it is on-premise or in cloud or maybe hybrid. Provide advantages
+You can imagine any sector software system you like (e-commerce, telecom, ride sharing, etc)
+but justify why it is on-premise in the cloud or maybe hybrid. Provide advantages
 of tools and strategies that you selected over others in the market.
 A diagram of the proposed architecture would be wonderful but not strictly required. Try to
-address all the points in easy to understand English in your readme file or files
+address all the points in easy-to-understand English in your readme file or files
