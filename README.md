@@ -1,15 +1,15 @@
 # devops
 This is a project to complete the following tasks.
 
-##Task 1
-Create a full project with code, deployment yaml and jenkinsfile in a github/gitlab/bitbucket
+## Task 1
+Create a full project with code, deployment YAML and Jenkinsfile in a GitHub/Gitlab/Bitbucket
 repository.
-Source should be php laravel latest code. You will take that code and make 2 dockerfile to
-create 2 docker image that displays following static html pages,
+The source should be php Laravel's latest code. You will take that code and make 2 docker file to
+create 2 docker images that display the following static HTML pages,
 App 1 browser output: Hello I am App 1
 App 2 browser output: Hello I am App 2
 Host these docker images in your dockerhub account publicly. Create separate kubernetes
-deployment, configmap, service yaml files. Service should be nodeport.
+deployment, config map, service yaml files. Service should be nodeport.
 Include a nginx deployment that will serve app1 or app2 based on api address. Use nginx
 official image and mount configmap to change configuration.
 http://nodeip:nodeport/app1 displays app1
@@ -61,38 +61,38 @@ directory root
 
 ----readme.md
 
-##Task 2
+## Task 2
 Create 1 master and 2 worker kubernetes cluster using vagrant or lxc/lxd containers. Use
-ansible or any configuration management tool of your choice to download kubernetes binaries
-and install into those vms/containers. Create a kubeadm config file and use kubeadm to
+Ansible or any configuration management tool of your choice to download kubernetes binaries
+and install them into those vms/containers. Create a kubeadm config file and use kubeadm to
 bootstrap kubernetes cluster using that configuration management tool. You can combine binary
 installation and configuration scripts or keep them separate.
 Use CNI of your choice but it should be deployed using configuration management scripts
 (ansible or other)
 Deploy kubernetes dashboard and metric server in this cluster and expose it to nodeport.
 Create a service account with the right privilege (provide RBAC file) to access kubernetes
-dashboard. Host it into a public git repo with appropriate readme.
+dashboard. Host it into a public git repo with an appropriate readme.
 Your solution should contain instructions to setup vagrant or lxc/lxd containers.
 Your solution should contain ansible or other configuration management tool scripts to install,
-configure cluster, cni, deploy dashboard, metric server and create service account with rbac.
+configure cluster, CNI, deploy dashboard, metric server, and create a service account with rbac.
 
-##Task 3
-Create a public git repo which will contain readme files and diagrams. You can combine them
+## Task 3
+Create a public git repo that will contain readme files and diagrams. You can combine them
 together or keep separate according to section.
 Design a highly available microservices architecture deployment solution. Your application may
 reside on-premise or can be in the cloud or hybrid.
 Your solution should use infrastructure as code or gitops methodologies.
-Your solution should use proper loadbalancing, single point of failure, scalability, fault tolerance,
-auto recovery considerations.
+Your solution should use proper load-balancing, single point of failure, scalability, fault tolerance,
+and auto recovery considerations.
 Your solution should include CI/CD strategies and tool justification along with test automation
 and security as pipeline concepts.
 Your solution should describe how observability across the whole architecture will be maintained
-and what tools will be used.
-Your solution should provide logging, alerting strategies and how outage should be handled.
-Your solution should include ways for knowledgebase and configurations, secrets management
+and what tools will be used?
+Your solution should provide logging, alerting strategies, and how outage should be handled.
+Your solution should include ways for knowledgebase and configurations, and secrets management
 to be integrated with the system.
-You can imagine any sector software system you like (e-commerce, telecom, ride sharing etc)
-but provide justification for why it is on-premise or in cloud or maybe hybrid. Provide advantages
+You can imagine any sector software system you like (e-commerce, telecom, ride sharing, etc)
+but justify why it is on-premise or in the cloud or maybe hybrid. Provide advantages
 of tools and strategies that you selected over others in the market.
 A diagram of the proposed architecture would be wonderful but not strictly required. Try to
-address all the points in easy to understand English in your readme file or files
+address all the points in easy-to-understand English in your readme file or files
