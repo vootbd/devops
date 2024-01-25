@@ -104,18 +104,20 @@ resource "null_resource" "name" {
 
   # copy the install_jenkins.sh file from your computer to the ec2 instance 
   provisioner "file" {
-    source      = "jenkins_install.sh????"
+    source      = "jenkins_install.sh"
     destination = "/tmp/jenkins_install.sh"
   }
 
   # set permissions and run the install_jenkins.sh file
   provisioner "remote-exec" {
     inline = [
+      "sudo chmod +x /tmp/jenkins_install.sh",
+      "sh /tmp/jenkins_install.sh",
     ]
   }
 
   # wait for ec2 to be created
-  depends_on = []
+  depends_on = [aws_instance.ec2_instance]
 }
 
 
