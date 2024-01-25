@@ -73,7 +73,7 @@ resource "aws_security_group" "ec2_security_group" {
 }
 
 
-# use data source to get a registered amazon linux 2 ami
+# use data source to get a registered ubuntu ami
 data "aws_ami" "ubuntu_22_04" {
   most_recent = true
   filter {
