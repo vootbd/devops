@@ -84,6 +84,7 @@ data "aws_ami" "ubuntu_22_04" {
     name   = "virtualization-type"
     values = ["hvm"]  # Filter for HVM AMIs
   }
+  owners = ["099720109477"]
 }
 
 # launch the ec2 instance and install website
