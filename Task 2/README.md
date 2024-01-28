@@ -14,4 +14,4 @@ https://github.com/azeezsalu/terraform-tutorial-reference-files/blob/main/ec2-re
 https://www.jenkins.io/doc/tutorials/tutorial-for-installing-jenkins-on-AWS/#installing-and-configuring-jenkins
 
 
-
+https://stackoverflow.com/questions/77893604/jenkins-installation-in-ubuntu-22-04-with-bash-script-using-in-terraform-gets-st
