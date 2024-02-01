@@ -1,61 +1,97 @@
 #!/bin/bash
+# common.sh
+# copy this script and run in all master and worker nodes
+#i1) Switch to root user [ sudo -i]
 
-# 1) Update host entries, disable swap, and add kernel parameters
-echo "192.168.1.190   k8smaster.example.com k8smaster" >> /etc/hosts
-echo "192.168.1.191   k8sworker.example.com k8sworker" >> /etc/hosts
-sudo swapoff -a
-sudo sed -i '/ swap / s/^\(.*\)$/#\1/g' /etc/fstab
+#2) Disable swap & add kernel settings
 
-echo "overlay" | sudo tee /etc/modules-load.d/containerd.conf
-echo "br_netfilter" | sudo tee -a /etc/modules-load.d/containerd.conf
-sudo modprobe overlay
-sudo modprobe br_netfilter
+swapoff -a
+sed -i '/ swap / s/^\(.*\)$/#\1/g' /etc/fstab
 
-cat <<EOF | sudo tee /etc/sysctl.d/kubernetes.conf
-net.bridge.bridge-nf-call-ip6tables = 1
-net.bridge.bridge-nf-call-iptables = 1
-net.ipv4.ip_forward = 1
+
+#3) Add  kernel settings & Enable IP tables(CNI Prerequisites)
+
+cat <<EOF | sudo tee /etc/modules-load.d/k8s.conf
+overlay
+br_netfilter
 EOF
-sudo sysctl --system
 
-# 2) Install Containerd and Enable Kubernetes repository
-sudo apt-get install -y curl software-properties-common apt-transport-https ca-certificates
+modprobe overlay
+modprobe br_netfilter
 
-sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/trusted.gpg.d/docker.gpg
-sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" -y
+cat <<EOF | sudo tee /etc/sysctl.d/k8s.conf
+net.bridge.bridge-nf-call-iptables  = 1
+net.bridge.bridge-nf-call-ip6tables = 1
+net.ipv4.ip_forward                 = 1
+EOF
 
-sudo apt-get update -y && sudo apt-get install -y containerd.io
+sysctl --system
 
-containerd config default | sudo tee /etc/containerd/config.toml
-sudo sed -i 's/SystemdCgroup \= false/SystemdCgroup \= true/g' /etc/containerd/config.toml
-sudo systemctl restart containerd && sudo systemctl enable containerd
+#4) Install containerd run time
 
-# 3) Install kubeadm, kubectl, and kubelet
-curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
-sudo apt-add-repository "deb http://apt.kubernetes.io/ kubernetes-xenial main" -y
-sudo apt-get update -y && sudo apt-get install -y kubelet kubeadm kubectl && sudo apt-mark hold kubelet kubeadm kubectl
+#To install containerd, first install its dependencies.
 
-# 4) Initialize Kubernetes cluster
-sudo kubeadm init --control-plane-endpoint=k8smaster.example.com
-mkdir -p $HOME/.kube
-sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
-sudo chown $(id -u):$(id -g) $HOME/.kube/config
+apt-get update -y
+apt-get install ca-certificates curl gnupg lsb-release -y
 
-# 5) Add worker node to cluster & install Calico CNI
-# (Run this section on the worker node)
-sudo kubeadm join k8smaster.example.net:6443
+#Note: We are not installing Docker Here.Since containerd.io package is part of docker apt repositories hence we added docker repository & it's key to download and install containerd.
+# Add Docker’s official GPG key:
+sudo mkdir -p /etc/apt/keyrings
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
 
-# (Run the rest on the master node)
-kubectl apply -f https://raw.githubusercontent.com/projectcalico/calico/master/manifests/calico.yaml
-kubectl get pods -n kube-system
-kubectl get nodes
+#Use follwing command to set up the repository:
 
-# 6) Test Kubernetes cluster installation
-kubectl create deployment nginx-app --image=nginx --replicas=2
-kubectl get deployment nginx-app
-kubectl get pods
-kubectl expose deployment nginx-app --type=NodePort --port=80
-kubectl get svc nginx-app && kubectl describe svc nginx-app
+echo \
+  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
+  $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
 
-# Access the Nginx application (replace with actual worker IP and nodeport)
-curl http://worker-ip-address:nodeport
+# Install containerd
+
+apt-get update -y
+apt-get install containerd.io -y
+
+# Generate default configuration file for containerd
+
+#Note: Containerd uses a configuration file located in /etc/containerd/config.toml for specifying daemon level options.
+#The default configuration can be generated via below command.
+
+containerd config default > /etc/containerd/config.toml
+
+# Run following command to update configure cgroup as systemd for contianerd.
+
+sed -i 's/SystemdCgroup \= false/SystemdCgroup \= true/g' /etc/containerd/config.toml
+
+# Restart and enable containerd service
+
+systemctl restart containerd
+systemctl enable containerd
+
+#5) Installing kubeadm, kubelet and kubectl
+
+# Update the apt package index and install packages needed to use the Kubernetes apt repository:
+
+apt-get update
+apt-get install -y apt-transport-https ca-certificates curl
+
+# Download the Google Cloud public signing key:
+
+curl -fsSL https://dl.k8s.io/apt/doc/apt-key.gpg | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-archive-keyring.gpg
+
+# Add the Kubernetes apt repository:
+
+echo "deb [signed-by=/etc/apt/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list
+
+# Update apt package index, install kubelet, kubeadm and kubectl, and pin their version:
+
+apt-get update
+apt-get install -y kubelet kubeadm kubectl
+
+# apt-mark hold will prevent the package from being automatically upgraded or removed.
+
+apt-mark hold kubelet kubeadm kubectl
+
+# Enable and start kubelet service
+
+systemctl daemon-reload
+systemctl start kubelet
+systemctl enable kubelet.service
