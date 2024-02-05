@@ -1,5 +1,5 @@
 #!/bin/bash
-sudo apt-get update -y
+sudo apt-get update
 sudo apt-get upgrade -y
 sudo apt-get install software-properties-common gnupg2 curl unzip wget -y
 curl https://apt.releases.hashicorp.com/gpg | gpg --dearmor > hashicorp.gpg
