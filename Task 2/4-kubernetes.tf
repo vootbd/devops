@@ -26,16 +26,17 @@ resource "null_resource" "master_node" {
 
   # copy the install_kubernates.sh file from your computer to the master node instance 
   provisioner "file" {
-    source      = "install_kubernates.sh"
-    destination = "/tmp/install_kubernates.sh"
+    source      = ["install_kubernates.sh", "kube_init.sh"]
+    destination = "/tmp/"
   }
 
   # set permissions and run the install_kubernates.sh file
   provisioner "remote-exec" {
     inline = [
-      "sudo chmod +x /tmp/install_kubernates.sh",
+      "sudo chmod +x -R /tmp/",
       "sudo sh /tmp/install_kubernates.sh",
       "sudo kubeadm init",
+      "sudo sh /tmp/kube_init.shS"
     ]
   }
 
