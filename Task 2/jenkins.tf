@@ -28,7 +28,7 @@ resource "aws_instance" "ec2_instance" {
 }
 
 # an empty resource block
-resource "null_resource" "name" {
+resource "null_resource" "jenkins" {
 
   # ssh into the ec2 instance 
   connection {
