@@ -14,7 +14,7 @@ resource "aws_instance" "kubernetes_master_ec2_instance" {
 }
 
 # an empty resource block
-resource "null_resource" "name" {
+resource "null_resource" "master_node" {
 
   # ssh into the ec2 instance 
   connection {
@@ -30,7 +30,7 @@ resource "null_resource" "name" {
     destination = "/tmp/install_kubernates_master.sh"
   }
 
-  # set permissions and run the install_jenkins.sh file
+  # set permissions and run the install_kubernates.sh file
   provisioner "remote-exec" {
     inline = [
       "sudo chmod +x /tmp/install_kubernates_master.sh",
@@ -39,7 +39,7 @@ resource "null_resource" "name" {
   }
 
   # wait for ec2 to be created
-  depends_on = [aws_instance.ec2_instance]
+  depends_on = [aws_instance.kubernetes_master_ec2_instance]
 }
 
 # launch the ec2 instance and install Kubernetes for worker1 node
