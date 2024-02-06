@@ -36,7 +36,7 @@ resource "null_resource" "master_node" {
       "sudo chmod +x -R /tmp/",
       "sudo sh /tmp/install_kubernates.sh",
       "sudo kubeadm init",
-      "sudo sh /tmp/kube_init.shS"
+      "sudo sh /tmp/kube_init.sh"
     ]
   }
 
@@ -60,7 +60,7 @@ resource "aws_instance" "kubernetes_worker1" {
 }
 
 # an empty resource block
-resource "null_resource" "master_node" {
+resource "null_resource" "worker1" {
 
   # ssh into the ec2 instance 
   connection {
@@ -104,7 +104,7 @@ resource "aws_instance" "kubernetes_worker2" {
 }
 
 # an empty resource block
-resource "null_resource" "master_node" {
+resource "null_resource" "worker2" {
 
   # ssh into the ec2 instance 
   connection {
