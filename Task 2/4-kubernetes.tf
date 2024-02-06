@@ -24,17 +24,18 @@ resource "null_resource" "master_node" {
     host        = aws_instance.kubernetes_master.public_ip
   }
 
-  # copy the install_kubernates_master.sh file from your computer to the master node instance 
+  # copy the install_kubernates.sh file from your computer to the master node instance 
   provisioner "file" {
-    source      = "install_kubernates_master.sh"
-    destination = "/tmp/install_kubernates_master.sh"
+    source      = "install_kubernates.sh"
+    destination = "/tmp/install_kubernates.sh"
   }
 
   # set permissions and run the install_kubernates.sh file
   provisioner "remote-exec" {
     inline = [
-      "sudo chmod +x /tmp/install_kubernates_master.sh",
-      "sudo sh /tmp/install_kubernates_master.sh",
+      "sudo chmod +x /tmp/install_kubernates.sh",
+      "sudo sh /tmp/install_kubernates.sh",
+      "sudo kubeadm init",
     ]
   }
 
@@ -57,6 +58,35 @@ resource "aws_instance" "kubernetes_worker1" {
   }
 }
 
+# an empty resource block
+resource "null_resource" "master_node" {
+
+  # ssh into the ec2 instance 
+  connection {
+    type        = "ssh"
+    user        = "ubuntu"
+    private_key = file("~/bastion_key.pem")
+    host        = aws_instance.kubernetes_master.public_ip
+  }
+
+  # copy the install_kubernates.sh file from your computer to the master node instance 
+  provisioner "file" {
+    source      = "install_kubernates.sh"
+    destination = "/tmp/install_kubernates.sh"
+  }
+
+  # set permissions and run the install_kubernates.sh file
+  provisioner "remote-exec" {
+    inline = [
+      "sudo chmod +x /tmp/install_kubernates.sh",
+      "sudo sh /tmp/install_kubernates.sh",
+    ]
+  }
+
+  # wait for ec2 to be created
+  depends_on = [aws_instance.kubernetes_worker1]
+}
+
 # launch the ec2 instance and install Kubernetes for worker2 node
 resource "aws_instance" "kubernetes_worker2" {
 #  ami                    = data.aws_ami.ubuntu_22_04.id
@@ -70,4 +100,33 @@ resource "aws_instance" "kubernetes_worker2" {
   tags = {
     Name = "Kubernetes Worker2 Node"
   }
+}
+
+# an empty resource block
+resource "null_resource" "master_node" {
+
+  # ssh into the ec2 instance 
+  connection {
+    type        = "ssh"
+    user        = "ubuntu"
+    private_key = file("~/bastion_key.pem")
+    host        = aws_instance.kubernetes_master.public_ip
+  }
+
+  # copy the install_kubernates.sh file from your computer to the master node instance 
+  provisioner "file" {
+    source      = "install_kubernates.sh"
+    destination = "/tmp/install_kubernates.sh"
+  }
+
+  # set permissions and run the install_kubernates.sh file
+  provisioner "remote-exec" {
+    inline = [
+      "sudo chmod +x /tmp/install_kubernates.sh",
+      "sudo sh /tmp/install_kubernates.sh",
+    ]
+  }
+
+  # wait for ec2 to be created
+  depends_on = [aws_instance.kubernetes_worker2]
 }
