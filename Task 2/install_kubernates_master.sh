@@ -30,7 +30,7 @@ sysctl --system
 
 #To install containerd, first install its dependencies.
 
-apt-get update -y
+apt-get update
 apt-get install ca-certificates curl gnupg lsb-release -y
 
 #Note: We are not installing Docker Here.Since containerd.io package is part of docker apt repositories hence we added docker repository & it's key to download and install containerd.
@@ -46,7 +46,7 @@ echo \
 
 # Install containerd
 
-apt-get update -y
+apt-get update
 apt-get install containerd.io -y
 
 # Generate default configuration file for containerd
