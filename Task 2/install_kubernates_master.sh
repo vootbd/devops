@@ -1,8 +1,7 @@
-#!/bin/bash
+#!/usr/bin/sudo bash
 # common.sh
 # copy this script and run in all master and worker nodes
-#i1) Switch to root user [ sudo -i]
-
+#1) Switch to root user [ sudo -i]
 #2) Disable swap & add kernel settings
 
 swapoff -a
