@@ -36,7 +36,7 @@ resource "null_resource" "master_node" {
       "sudo chmod +x -R /tmp/",
       "sudo sh /tmp/install_kubernates.sh",
       "sudo kubeadm init",
-      "sudo sh /tmp/kube_init.sh"
+      "sudo sh /tmp/kube_init.sh",
     ]
   }
 
