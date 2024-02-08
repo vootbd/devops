@@ -1,4 +1,7 @@
 #!/usr/bin/sudo bash
+sudo sed -i 's/APT::Periodic::Update-Package-Lists "1";/APT::Periodic::Update-Package-Lists "0";/g' /etc/apt/apt.conf.d/20auto-upgrades
+sudo sed -i 's/#\$nrconf{verbosity} = '2';/\$nrconf{verbosity} = '0';/g' /etc/needrestart/needrestart.conf
+sudo sed -i 's/#\$nrconf{restart} = '\''i'\'';/\$nrconf{restart} = '\''a'\'';/g' /etc/needrestart/needrestart.conf
 # common.sh
 # copy this script and run in all master and worker nodes
 #1) Switch to root user [ sudo -i]
@@ -82,7 +85,7 @@ echo "deb [signed-by=/etc/apt/keyrings/kubernetes-archive-keyring.gpg] https://a
 
 # Update apt package index, install kubelet, kubeadm and kubectl, and pin their version:
 
-apt-get update -y && && apt-get upgrade -y
+apt-get update -y && apt-get upgrade -y
 apt-get install -y kubelet kubeadm kubectl
 
 # apt-mark hold will prevent the package from being automatically upgraded or removed.
