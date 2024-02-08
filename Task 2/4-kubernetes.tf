@@ -26,8 +26,13 @@ resource "null_resource" "master_node" {
 
   # copy the install_kubernates.sh file from your computer to the master node instance 
   provisioner "file" {
-    source      = "[install_kubernates.sh, kube_init.sh]"
-    destination = "/tmp/"
+    source      = "install_kubernates.sh"
+    destination = "/tmp/install_kubernates.sh"
+  }
+
+  provisioner "file" {
+    source      = "kube_init.sh"
+    destination = "/tmp/kube_init.sh"
   }
 
   # set permissions and run the install_kubernates.sh file
