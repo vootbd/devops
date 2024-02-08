@@ -30,7 +30,7 @@ sysctl --system
 
 #To install containerd, first install its dependencies.
 
-apt-get update
+apt-get update -y && apt-get upgrade -y
 apt-get install ca-certificates curl gnupg lsb-release -y
 
 #Note: We are not installing Docker Here.Since containerd.io package is part of docker apt repositories hence we added docker repository & it's key to download and install containerd.
@@ -46,7 +46,7 @@ echo \
 
 # Install containerd
 
-apt-get update
+apt-get update -y && apt-get upgrade -y
 apt-get install containerd.io -y
 
 # Generate default configuration file for containerd
@@ -69,7 +69,7 @@ systemctl enable containerd
 
 # Update the apt package index and install packages needed to use the Kubernetes apt repository:
 
-apt-get update
+apt-get update -y && apt-get upgrade -y
 apt-get install -y apt-transport-https ca-certificates curl
 
 # Download the Google Cloud public signing key:
@@ -82,7 +82,7 @@ echo "deb [signed-by=/etc/apt/keyrings/kubernetes-archive-keyring.gpg] https://a
 
 # Update apt package index, install kubelet, kubeadm and kubectl, and pin their version:
 
-apt-get update
+apt-get update -y && && apt-get upgrade -y
 apt-get install -y kubelet kubeadm kubectl
 
 # apt-mark hold will prevent the package from being automatically upgraded or removed.
