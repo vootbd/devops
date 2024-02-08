@@ -1,20 +1,5 @@
-# use data source to get a registered ubuntu ami
-#data "aws_ami" "ubuntu_22_04" {
-#  most_recent = true
-#  filter {
-#    name   = "name"
-#    values = ["ubuntu/images/hvm-ssd/ubuntu-jammy-amd64-*"]  # Match Ubuntu 22.04 AMIs
-#  }
-#  filter {
-#    name   = "virtualization-type"
-#    values = ["hvm"]  # Filter for HVM AMIs
-#  }
-#  owners = ["099720109477"]
-#}
-
 # launch the ec2 instance and install website
 resource "aws_instance" "ec2_instance" {
-#  ami                    = data.aws_ami.ubuntu_22_04.id
   ami                    = "ami-008fe2fc65df48dac"
   instance_type          = "t2.micro"
   subnet_id              = aws_default_subnet.default_az1.id
