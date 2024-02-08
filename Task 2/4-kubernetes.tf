@@ -72,7 +72,7 @@ resource "null_resource" "worker1" {
     type        = "ssh"
     user        = "ubuntu"
     private_key = file("~/bastion_key.pem")
-    host        = aws_instance.kubernetes_master.public_ip
+    host        = aws_instance.kubernetes_worker1.public_ip
   }
 
   # copy the install_kubernates.sh file from your computer to the master node instance 
@@ -116,7 +116,7 @@ resource "null_resource" "worker2" {
     type        = "ssh"
     user        = "ubuntu"
     private_key = file("~/bastion_key.pem")
-    host        = aws_instance.kubernetes_master.public_ip
+    host        = aws_instance.kubernetes_worker2.public_ip
   }
 
   # copy the install_kubernates.sh file from your computer to the master node instance 
