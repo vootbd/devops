@@ -42,12 +42,12 @@ resource "null_resource" "master_node" {
       "sudo sh /tmp/install_kubernates.sh",
       "sudo kubeadm init",
       "sudo sh /tmp/kube_init.sh",
-      "sudo kubeadm token create --print-join-command > /tmp/join_command.txt"
+      "sudo kubeadm token create --print-join-command > /tmp/join_command.sh"
     ]
   }
 
   provisioner "local-exec" {
-    command = "scp -i /home/ubuntu/bastion_key.pem ubuntu@${aws_instance.kubernetes_master.public_ip}:/tmp/join_command.txt /tmp/"
+    command = "scp -i /home/ubuntu/bastion_key.pem ubuntu@${aws_instance.kubernetes_master.public_ip}:/tmp/join_command.sh /tmp/"
   }  
 
   # wait for ec2 to be created
