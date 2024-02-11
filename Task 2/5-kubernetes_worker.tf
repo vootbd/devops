@@ -31,8 +31,8 @@ resource "null_resource" "worker1" {
   }
 
   provisioner "file" {
-    source      = "/tmp/join_cammand.sh"
-    destination = "/tmp/join_cammand.sh"
+    source      = "/tmp/join_command.sh"
+    destination = "/tmp/join_command.sh"
   }
 
   # set permissions and run the install_kubernates.sh file
@@ -83,8 +83,8 @@ resource "null_resource" "worker2" {
   }
 
  provisioner "file" {
-    source      = "/tmp/join_cammand.sh"
-    destination = "/tmp/join_cammand.sh"
+    source      = "/tmp/join_command.sh"
+    destination = "/tmp/join_command.sh"
   }
 
   # set permissions and run the install_kubernates.sh file
