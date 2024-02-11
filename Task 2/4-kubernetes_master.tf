@@ -47,10 +47,8 @@ resource "null_resource" "master_node" {
   }
 
   provisioner "local-exec" {
-    inline = [
-      command = scp -i /home/ubuntu/bastion_key.pem ubuntu@${aws_instance.kubernetes_master.public_ip}:/tmp/join_command.txt /tmp/
-        ]
-    }
+    command = "scp -i /home/ubuntu/bastion_key.pem ubuntu@${aws_instance.kubernetes_master.public_ip}:/tmp/join_command.txt /tmp/"
+  }  
 
   # wait for ec2 to be created
   depends_on = [aws_instance.kubernetes_master]
