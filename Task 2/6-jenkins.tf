@@ -33,7 +33,7 @@ resource "null_resource" "jenkins" {
   provisioner "remote-exec" {
     inline = [
       "sudo chmod +x /tmp/install_jenkins.sh",
-      "sudo bash /tmp/install_jenkins.sh",
+      "sudo sh /tmp/install_jenkins.sh",
     ]
   }
 
