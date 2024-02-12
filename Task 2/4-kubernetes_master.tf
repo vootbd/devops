@@ -42,7 +42,7 @@ resource "null_resource" "master_node" {
       "sudo sh /tmp/install_kubernates.sh",
       "sudo kubeadm init",
       "sudo sh /tmp/kube_init.sh",
-      "kubeadm token create --print-join-command > /tmp/join_command.txt"
+      "sudo kubeadm token create --print-join-command > /tmp/join_command.txt",
     ]
   }
 
