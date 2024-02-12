@@ -58,7 +58,7 @@ resource "aws_instance" "kubernetes_worker2" {
     Name = "Kubernetes Worker2 Node"
   }
 
-  depends_on = [aws_instance.kubernetes_master.id]
+  depends_on = [aws_instance.kubernetes_master]
 }
 
 # an empty resource block
