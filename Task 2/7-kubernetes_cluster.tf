@@ -1,5 +1,5 @@
 # an empty resource block
-resource "null_resource" "worker1" {
+resource "null_resource" "worker1-cluster" {
 
   # ssh into the ec2 instance 
   connection {
@@ -29,7 +29,7 @@ resource "null_resource" "worker1" {
 }
 
 # an empty resource block
-resource "null_resource" "worker2" {
+resource "null_resource" "worker2-cluster" {
 
   # ssh into the ec2 instance 
   connection {
