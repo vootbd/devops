@@ -30,16 +30,24 @@ resource "null_resource" "worker1" {
     destination = "/tmp/install_kubernates.sh"
   }
 
+  provisioner "file" {
+    source      = "/tmp/join_command.sh"
+    destination = "/tmp/join_command.sh"
+  }
+
   # set permissions and run the install_kubernates.sh file
   provisioner "remote-exec" {
     inline = [
       "sudo chmod +x /tmp/install_kubernates.sh",
       "sudo sh /tmp/install_kubernates.sh",
+      "sed -i '1i#!/bin/bash' /tmp/join_command.sh",
+      "sudo chmod +x /tmp/join_command.sh",
+      "sudo sh /tmp/join_command.sh",
     ]
   }
 
   # wait for ec2 to be created
-  depends_on = [aws_instance.kubernetes_worker1]
+  depends_on = [aws_instance.kubernetes_worker1,aws_instance.kubernetes_master]
 }
 
 # launch the ec2 instance and install Kubernetes for worker2 node
@@ -74,14 +82,22 @@ resource "null_resource" "worker2" {
     destination = "/tmp/install_kubernates.sh"
   }
 
+ provisioner "file" {
+    source      = "/tmp/join_command.sh"
+    destination = "/tmp/join_command.sh"
+  }
+
   # set permissions and run the install_kubernates.sh file
   provisioner "remote-exec" {
     inline = [
       "sudo chmod +x /tmp/install_kubernates.sh",
       "sudo sh /tmp/install_kubernates.sh",
+      "sed -i '1i#!/bin/bash' /tmp/join_command.sh",
+      "sudo chmod +x /tmp/join_command.sh",
+      "sudo sh /tmp/join_command.sh",
     ]
   }
 
   # wait for ec2 to be created
-  depends_on = [aws_instance.kubernetes_worker2]
+  depends_on = [aws_instance.kubernetes_worker2,aws_instance.kubernetes_master]
 }
