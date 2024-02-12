@@ -12,7 +12,7 @@ resource "aws_instance" "kubernetes_worker1" {
     Name = "Kubernetes Worker1 Node"
   }
 
-  depends_on = [aws_instance.kubernetes_master.id ]
+  depends_on = [aws_instance.kubernetes_master]
 }
 
 # an empty resource block
@@ -41,7 +41,7 @@ resource "null_resource" "worker1" {
   }
 
   # wait for ec2 to be created
-  depends_on = [aws_instance.kubernetes_worker1.id]
+  depends_on = [aws_instance.kubernetes_worker1]
 }
 
 # launch the ec2 instance and install Kubernetes for worker2 node
@@ -87,5 +87,5 @@ resource "null_resource" "worker2" {
   }
 
   # wait for ec2 to be created
-  depends_on = [aws_instance.kubernetes_worker2.id]
+  depends_on = [aws_instance.kubernetes_worker2]
 }

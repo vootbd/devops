@@ -51,5 +51,5 @@ resource "null_resource" "master_node" {
   }  
 
   # wait for ec2 to be created
-  depends_on = [aws_instance.kubernetes_master.id]
+  depends_on = [aws_instance.kubernetes_master]
 }

@@ -25,7 +25,7 @@ resource "null_resource" "worker1-cluster" {
   }
 
   # wait for ec2 to be created
-  depends_on = [aws_instance.kubernetes_worker1.id, aws_instance.kubernetes_worker2.id, aws_instance.kubernetes_master.id]
+  depends_on = [aws_instance.kubernetes_worker1, aws_instance.kubernetes_master, null_resource.master_node]
 }
 
 # an empty resource block
@@ -55,5 +55,5 @@ resource "null_resource" "worker2-cluster" {
   }
 
   # wait for ec2 to be created
-  depends_on = [aws_instance.kubernetes_worker1.id, aws_instance.kubernetes_worker2.id, aws_instance.kubernetes_master.id]
+  depends_on = [aws_instance.kubernetes_worker2, aws_instance.kubernetes_master, null_resource.master_node]
 }
