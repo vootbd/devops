@@ -30,19 +30,11 @@ resource "null_resource" "worker1" {
     destination = "/tmp/install_kubernates.sh"
   }
 
-  provisioner "file" {
-    source      = "/tmp/join_command.sh"
-    destination = "/tmp/join_command.sh"
-  }
-
   # set permissions and run the install_kubernates.sh file
   provisioner "remote-exec" {
     inline = [
       "sudo chmod +x /tmp/install_kubernates.sh",
       "sudo sh /tmp/install_kubernates.sh",
-      "sed -i '1i#!/bin/bash' /tmp/join_command.sh",
-      "sudo chmod +x /tmp/join_command.sh",
-      "sudo sh /tmp/join_command.sh",
     ]
   }
 
@@ -82,19 +74,11 @@ resource "null_resource" "worker2" {
     destination = "/tmp/install_kubernates.sh"
   }
 
- provisioner "file" {
-    source      = "/tmp/join_command.sh"
-    destination = "/tmp/join_command.sh"
-  }
-
   # set permissions and run the install_kubernates.sh file
   provisioner "remote-exec" {
     inline = [
       "sudo chmod +x /tmp/install_kubernates.sh",
       "sudo sh /tmp/install_kubernates.sh",
-      "sed -i '1i#!/bin/bash' /tmp/join_command.sh",
-      "sudo chmod +x /tmp/join_command.sh",
-      "sudo sh /tmp/join_command.sh",
     ]
   }
 
