@@ -40,18 +40,10 @@ resource "aws_security_group" "kubernetes_security_group" {
 
   # allow access on port 22
   ingress {
-    description      = "ssh access"
-    from_port        = 22
-    to_port          = 22
-    protocol         = "tcp"
-    cidr_blocks      = ["0.0.0.0/0"]
-  }
-
-  ingress {
-    description      = "ssh access"
-    from_port        = 6443
-    to_port          = 6443
-    protocol         = "tcp"
+    #description      = "ssh access"
+    from_port        = 0
+    to_port          = 0
+    protocol         = -1
     cidr_blocks      = ["0.0.0.0/0"]
   }
 
