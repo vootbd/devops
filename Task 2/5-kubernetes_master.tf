@@ -41,7 +41,7 @@ resource "null_resource" "master_node" {
       "sudo chmod +x -R /tmp/",
       "sudo sh /tmp/install_kubernates.sh",
       "sudo kubeadm init",
-      "sudo sh /tmp/kube_init.sh",
+      "sh /tmp/kube_init.sh",
       "sudo kubeadm token create --print-join-command > /tmp/join_command.sh",
     ]
   }
