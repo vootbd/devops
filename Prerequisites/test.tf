@@ -112,7 +112,7 @@ resource "null_resource" "name" {
   }
 
   provisioner "local-exec" {
-    command = "yes | scp -i /home/ubuntu/bastion_key.pem ubuntu@${aws_instance.kubernetes_master.public_ip}:/tmp/join_command.sh /tmp/"
+    command = "yes | scp -i /home/ubuntu/bastion_key.pem ubuntu@${aws_instance.ec2_instance.public_ip}:/tmp/join_command.sh /tmp/"
   }
 
   # wait for ec2 to be created
