@@ -89,32 +89,6 @@ resource "null_resource" "name" {
     host        = aws_instance.ec2_instance.public_ip
   }
 
-  # copy the install_kubernates.sh file from your computer to the master node instance 
-  provisioner "file" {
-    source      = "install_kubernates.sh"
-    destination = "/tmp/install_kubernates.sh"
-  }
-
-  provisioner "file" {
-    source      = "kube_init.sh"
-    destination = "/tmp/kube_init.sh"
-  }
-
-  # set permissions and run the install_kubernates.sh file
-  provisioner "remote-exec" {
-    inline = [
-      "sudo chmod +x -R /tmp/",
-      "sudo sh /tmp/install_kubernates.sh",
-      "sudo kubeadm init",
-      "sh /tmp/kube_init.sh",
-      "sudo kubeadm token create --print-join-command > /tmp/join_command.sh",
-    ]
-  }
-
-  provisioner "local-exec" {
-    command = "yes | scp -i /home/ubuntu/bastion_key.pem ubuntu@${aws_instance.ec2_instance.public_ip}:/tmp/join_command.sh /tmp/"
-  }
-
   # wait for ec2 to be created
   depends_on = [aws_instance.ec2_instance]
 }
