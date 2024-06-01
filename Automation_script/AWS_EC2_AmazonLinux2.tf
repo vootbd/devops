@@ -35,7 +35,7 @@ resource "aws_default_subnet" "default_az1" {
 }
 
 # create security group for the Jenkins instance
-resource "aws_security_group" "AmazonLinux__security_group" {
+resource "aws_security_group" "AmazonLinux_security_group" {
   name        = "AmazonLinux security group"
   description = "allow access on ports specific ports"
   vpc_id      = aws_default_vpc.default_vpc.id
