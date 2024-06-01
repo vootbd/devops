@@ -68,3 +68,17 @@ resource "aws_security_group" "AmazonLinux__security_group" {
     Name = "AmazonLinux server security group"
   }
 }
+
+# launch the ec2 instance and install website
+resource "aws_instance" "ec2_instance" {
+  ami                    = "ami-0eb9d67c52f5c80e5"
+  instance_type          = "t2.micro"
+  subnet_id              = aws_default_subnet.default_az1.id
+  vpc_security_group_ids = [aws_security_group.AmazonLinux_security_group.id]
+  key_name               = "bastion_key"
+  #user_data              = 
+
+  tags = {
+    Name = "AmazonLinux server"
+  }
+}
