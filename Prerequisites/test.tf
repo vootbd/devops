@@ -67,11 +67,16 @@ resource "aws_security_group" "ec2_security_group" {
 resource "aws_instance" "ec2_instance" {
 #  ami                    = data.aws_ami.ubuntu_22_04.id
   ami                    = "ami-008fe2fc65df48dac"
-  instance_type          = "t2.micro"
+  instance_type          = "t3a.small"
   subnet_id              = aws_default_subnet.default_az1.id
   vpc_security_group_ids = [aws_security_group.ec2_security_group.id]
-  key_name               = "bastion_key"
-  #user_data              = 
+  key_name               = "host"
+  #user_data              =
+  
+  root_block_device {
+    volume_size = 20 # Size in GB
+    volume_type = "gp3" # General Purpose SSD
+  } 
 
   tags = {
     Name = "Test server"
@@ -85,7 +90,7 @@ resource "null_resource" "name" {
   connection {
     type        = "ssh"
     user        = "ubuntu"
-    private_key = file("~/bastion_key.pem")
+    private_key = file("~/host.pem")
     host        = aws_instance.ec2_instance.public_ip
   }
 
