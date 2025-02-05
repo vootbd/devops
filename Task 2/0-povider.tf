@@ -9,5 +9,5 @@ terraform {
 
 # configured aws provider with proper credentials
 provider "aws" {
-  profile   = "default"
+  profile   = "host"
 }
